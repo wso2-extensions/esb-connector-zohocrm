@@ -1,0 +1,13 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "accessToken": "%s(accessToken)",
+  "scope": "%s(scope)",
+  "parentModule": "Campaigns",
+  "moduleType": "Leads",
+  "id":
+  %
+  s
+  (
+  parentModuleId
+  )
+}

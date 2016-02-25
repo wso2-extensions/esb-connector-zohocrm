@@ -1,0 +1,114 @@
+<template name="getRecords" xmlns="http://ws.apache.org/ns/synapse">
+    <!--
+     ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+     ~
+     ~  WSO2 Inc. licenses this file to you under the Apache License,
+     ~  Version 2.0 (the "License"); you may not use this file except
+     ~  in compliance with the License.
+     ~  You may obtain a copy of the License at
+     ~
+     ~    http://www.apache.org/licenses/LICENSE-2.0
+     ~
+     ~  Unless required by applicable law or agreed to in writing,
+     ~  software distributed under the License is distributed on an
+     ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     ~  KIND, either express or implied.  See the License for the
+     ~  specific language governing permissions and limitations
+     ~  under the License.
+    -->
+    <parameter name="newFormat"
+               description="The newFormat, an integer determine weather null valus should be excluded(1) or included(2)"/>
+    <parameter name="version" description="The version, determines the API version"/>
+    <parameter name="selectColumns"
+               description="The selectColumns, specifies which modules to be retrieved"/>
+    <parameter name="fromIndex" description="Index number to retrieve records from, default is 1"/>
+    <parameter name="toIndex" description="Index number to retrieve records to, default is 20"/>
+    <parameter name="sortColumnString"
+               description="Specifies the sorting order according to column names, defaults to ascending order"/>
+    <parameter name="sortOrderString" description="Specifies the sorting order, defaults to asc"/>
+    <parameter name="lastModifiedTime"
+               description="Specifies the datetime, where  modified data will be fetched after the configured time"/>
+    <parameter name="moduleType" description="The module to fetch records from"/>
+    <sequence>
+
+        <property name="uri.var.newFormat" expression="$func:newFormat"/>
+        <property name="uri.var.version" expression="$func:version"/>
+        <property name="uri.var.selectColumns" expression="$func:selectColumns"/>
+        <property name="uri.var.fromIndex" expression="$func:fromIndex"/>
+        <property name="uri.var.toIndex" expression="$func:toIndex"/>
+        <property name="uri.var.sortColumnString" expression="$func:sortColumnString"/>
+        <property name="uri.var.sortOrderString" expression="$func:sortOrderString"/>
+        <property name="uri.var.lastModifiedTime" expression="$func:lastModifiedTime"/>
+        <property name="uri.var.moduleType" expression="$func:moduleType"/>
+
+
+        <script language="js">
+            <![CDATA[
+			
+				// Generate url with parameters
+				var newFormat = mc.getProperty('uri.var.newFormat');
+				var version = mc.getProperty('uri.var.version');
+				var selectColumns = mc.getProperty('uri.var.selectColumns');
+				var fromIndex = mc.getProperty('uri.var.fromIndex');
+				var toIndex = mc.getProperty('uri.var.toIndex');				
+				var sortColumnString = mc.getProperty('uri.var.sortColumnString');
+				var sortOrderString = mc.getProperty('uri.var.sortOrderString');
+				var lastModifiedTime = mc.getProperty('uri.var.lastModifiedTime');				
+				var urlQuery = mc.getProperty('uri.var.urlQuery');
+				var moduleType = mc.getProperty('uri.var.moduleType');
+				
+				// Append query parameters
+				
+				if(newFormat != null && newFormat != "") {
+					urlQuery += 'newFormat=' + newFormat + '&';
+				}
+				
+				if(version != null && version != "") {
+					urlQuery += 'version=' + version + '&';
+				}
+				
+				if(selectColumns != null && selectColumns != "") {
+					urlQuery += 'selectColumns=' + selectColumns + '&';
+				}
+				
+				if(fromIndex != null && fromIndex != "") {
+					urlQuery += 'fromIndex=' + fromIndex + '&';
+				}
+				
+				if(toIndex != null && toIndex != "") {
+					urlQuery += 'toIndex=' + toIndex + '&';
+				}
+				
+				if(sortColumnString != null && sortColumnString != "") {
+					urlQuery += 'sortColumnString=' + sortColumnString + '&';
+				}
+				
+				if(sortOrderString != null && sortOrderString != "") {
+					urlQuery += 'sortOrderString=' + sortOrderString + '&';
+				}
+				
+				if(lastModifiedTime != null && lastModifiedTime != "") {
+					urlQuery += 'lastModifiedTime=' + lastModifiedTime + '&';
+				}
+						
+				urlQuery = '/' + moduleType + '/getRecords?' + urlQuery.substring(0, (''+urlQuery).length-1);
+				mc.setProperty('uri.var.urlQuery', urlQuery);
+							
+			]]></script>
+
+        <call>
+            <endpoint>
+                <http method="get"
+                      uri-template="{uri.var.apiUrl}/crm/private/json{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+
+        <!-- Removing custom headers -->
+        <header name="Strict-Transport-Security" action="remove" scope="transport"/>
+        <header name="X-XSS-Protection" action="remove" scope="transport"/>
+        <header name="X-Download-Options" action="remove" scope="transport"/>
+        <header name="X-Content-Type-Options" action="remove" scope="transport"/>
+        <header name="Pragma" action="remove" scope="transport"/>
+        <header name="Cache-Control" action="remove" scope="transport"/>
+    </sequence>
+</template>
