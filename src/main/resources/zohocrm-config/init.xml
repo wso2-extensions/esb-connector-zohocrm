@@ -1,0 +1,51 @@
+<template name="init" xmlns="http://ws.apache.org/ns/synapse">
+    <!--
+ ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~  WSO2 Inc. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+    <parameter name="apiUrl" description="The api url"/>
+    <parameter name="accessToken"
+               description="Encrypted alphanumeric string to authenticate the Zoho credentials"/>
+    <parameter name="scope" description="Specify the value as crmapi"/>
+
+    <sequence>
+        <property name="uri.var.apiUrl" expression="$func:apiUrl"/>
+        <property name="uri.var.accessToken" expression="$func:accessToken"/>
+        <property name="uri.var.scope" expression="$func:scope"/>
+
+        <filter source="boolean(get-property('uri.var.apiUrl'))" regex="false">
+            <then>
+                <property name="uri.var.apiUrl" value="https://crm.zoho.com"/>
+            </then>
+        </filter>
+
+        <script language="js">
+            <![CDATA[
+		
+		// Generate url with parameters
+		var scope = mc.getProperty('uri.var.scope');
+		var accessToken = mc.getProperty('uri.var.accessToken');
+		var urlQuery = '';
+		
+		// Append common mandatory query parameters
+			urlQuery = 'scope=' + encodeURIComponent(scope) + '&';
+			urlQuery += 'authtoken=' + encodeURIComponent(accessToken) + '&';
+			
+		mc.setProperty('uri.var.urlQuery', urlQuery);				
+		]]></script>
+
+    </sequence>
+</template>

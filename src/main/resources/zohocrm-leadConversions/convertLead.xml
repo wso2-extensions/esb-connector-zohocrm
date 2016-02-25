@@ -1,0 +1,82 @@
+<template name="convertLead" xmlns="http://ws.apache.org/ns/synapse">
+    <!--
+ ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~  WSO2 Inc. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+    <parameter name="newFormat"
+               description="The newFormat, an integer determine weather null valus should be excluded(1) or included(2)"/>
+    <parameter name="version" description="The API version"/>
+    <parameter name="leadId" description="The id of the lead"/>
+    <parameter name="xmlData" description="A xml string containing the conversion data"/>
+    <sequence>
+        <property name="uri.var.newFormat" expression="$func:newFormat"/>
+        <property name="uri.var.version" expression="$func:version"/>
+        <property name="uri.var.leadId" expression="$func:leadId"/>
+        <property name="uri.var.xmlData" expression="$func:xmlData"/>
+
+        <payloadFactory media-type="json">
+            <format>
+                {}
+            </format>
+        </payloadFactory>
+
+
+        <script language="js">
+            <![CDATA[
+			
+				// Generate url with parameters
+				var xmlData = mc.getProperty('uri.var.xmlData');
+				var version = mc.getProperty('uri.var.version');
+				var newFormat = mc.getProperty('uri.var.newFormat');
+				var leadId = mc.getProperty('uri.var.leadId');
+				var urlQuery = mc.getProperty('uri.var.urlQuery');
+				
+				// Append mandatory query parameters
+				urlQuery += 'xmlData=' + xmlData + '&';
+				urlQuery += 'leadId=' + leadId + '&';
+				
+				// Append optional query parameters
+				if(newFormat != null && newFormat != "") {
+					urlQuery += 'newFormat=' + newFormat + '&';
+				}
+
+				if(version != null && version != "") {
+					urlQuery += 'version=' + version + '&';
+				}
+				
+				//urlQuery.length is always greater than 1 since it is being set by init method
+				urlQuery = '/Leads/convertLead?' + urlQuery.substring(0, urlQuery.length-1);
+				mc.setProperty('uri.var.urlQuery', urlQuery);
+							
+			]]></script>
+
+        <call>
+            <endpoint>
+                <http method="post"
+                      uri-template="{uri.var.apiUrl}/crm/private/json{+uri.var.urlQuery}"/>
+            </endpoint>
+        </call>
+
+        <!-- Removing custom headers -->
+        <header name="Strict-Transport-Security" action="remove" scope="transport"/>
+        <header name="X-XSS-Protection" action="remove" scope="transport"/>
+        <header name="X-Download-Options" action="remove" scope="transport"/>
+        <header name="X-Content-Type-Options" action="remove" scope="transport"/>
+        <header name="Pragma" action="remove" scope="transport"/>
+        <header name="Cache-Control" action="remove" scope="transport"/>
+
+    </sequence>
+</template>
