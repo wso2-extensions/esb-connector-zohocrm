@@ -22,13 +22,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.connector</groupId>
     <artifactId>org.wso2.carbon.connector.${connector.name}</artifactId>
-    <version>${connector.version}</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>WSO2 Carbon - Mediation Library Connector For ${connector.name}</name>
     <url>http://wso2.org</url>
     <properties>
         <connector.name>zohocrm</connector.name>
-        <connector.version>1.0.0</connector.version>
         <esb.version>4.9.0</esb.version>
         <test.framework.version>4.2.0</test.framework.version>
         <carbon.kernel.version>4.4.1</carbon.kernel.version>
@@ -86,6 +85,14 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <scm>
+        <connection>scm:git:https://github.com/wso2-extensions/esb-connector-zohocrm.git
+        </connection>
+        <url>https://github.com/wso2-extensions/esb-connector-zohocrm.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/esb-connector-zohocrm
+        </developerConnection>
+        <tag>HEAD</tag>
+    </scm>
     <build>
         <plugins>
             <plugin>
@@ -133,7 +140,7 @@
                             <goal>attached</goal>
                         </goals>
                         <configuration>
-                            <finalName>${connector.name}-connector-${connector.version}</finalName>
+                            <finalName>${connector.name}-connector-${version}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <filters>
                                 <filter>${basedir}/src/main/assembly/filter.properties</filter>
@@ -198,24 +205,6 @@
                     <workingDirectory>${basedir}/target</workingDirectory>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<artifactId>maven-dependency-plugin</artifactId>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>copy-emma-dependencies</id>-->
-                        <!--<phase>compile</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>copy-dependencies</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<outputDirectory>${project.build.directory}/emma</outputDirectory>-->
-                            <!--<includeTypes>jar</includeTypes>-->
-                            <!--<includeArtifactIds>emma,org.wso2.carbon.automation.core-->
-                            <!--</includeArtifactIds>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
