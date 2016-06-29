@@ -80,7 +80,7 @@
 				}
 				
 				
-				urlQuery = '/' + moduleType + '/insertRecords?' + urlQuery.substring(0, urlQuery.length-1);
+				urlQuery = '/' + moduleType + '/insertRecords?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
 				mc.setProperty('uri.var.urlQuery', urlQuery);
 							
 			]]></script>

@@ -20,11 +20,15 @@
     <parameter name="accessToken" description="The accessToken"/>
     <parameter name="scope" description="The scope"/>
     <parameter name="moduleType" description="Specifies the module to upload the attachment"/>
+    <parameter name="id"
+               description="Specify unique ID of the record or note to which the file has to be
+               attached."/>
     <sequence>
         <property name="uri.var.apiUrl" expression="$func:apiUrl"/>
         <property name="uri.var.accessToken" expression="$func:accessToken"/>
         <property name="uri.var.scope" expression="$func:scope"/>
         <property name="uri.var.moduleType" expression="$func:moduleType"/>
+        <property name="uri.var.id" expression="$func:id"/>
 
         <!-- Force ESB to send the content length to the Zoho CRM API -->
         <property name="FORCE_HTTP_CONTENT_LENGTH" value="true" scope="axis2"/>
@@ -33,7 +37,7 @@
         <call>
             <endpoint>
                 <http method="post"
-                      uri-template="{uri.var.apiUrl}/crm/private/json/{uri.var.moduleType}/uploadFile?authtoken={+uri.var.accessToken}&amp;scope={uri.var.scope}"/>
+                      uri-template="{uri.var.apiUrl}/crm/private/json/{uri.var.moduleType}/uploadFile?authtoken={+uri.var.accessToken}&amp;scope={uri.var.scope}&amp;id={uri.var.id}"/>
             </endpoint>
         </call>
 

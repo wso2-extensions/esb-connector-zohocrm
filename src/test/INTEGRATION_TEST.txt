@@ -10,9 +10,9 @@ Pre-requisites:
 Tested Platform:
 
  - Microsoft WINDOWS V-7
- - UBUNTU 13.04
+ - UBUNTU 13.04, 14.04
  - Mac OSx 10.9
- - WSO2 ESB 4.9.0
+ - WSO2 ESB 4.9.0, 5.0.0-BETA
 
 STEPS:
 
@@ -27,7 +27,7 @@ STEPS:
 			NOTE : 	CERT_FILE_NAME is the file name which was extracted from zohocrm with  the extension, change it accordingly (e.g. zohocrm.crt).
 					CERT_NAME is an arbitrary name for the certificate. (e.g. zohocrm)
 	ii) Navigate to the "<ESB_HOME>/repository/resources/security" location from command prompt and execute the following command to import zohocrm certificate in to keystore. Give "wso2carbon" as password.
-			keytool -importcert -file CERT_FILE_NAME -keystore wso2carbon.jks -alias "CERT_NAME".
+			keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME".
 			NOTE : 	CERT_FILE_NAME is the file name which was extracted from zohocrm with  the extension, change it accordingly (e.g. zohocrm.crt).
 					CERT_NAME is an arbitrary name for the certificate. (e.g. zohocrm)
 	
@@ -42,9 +42,13 @@ STEPS:
 	
 	<messageBuilder contentType="application/jsonp" class="org.apache.synapse.commons.json.JsonStreamBuilder"/>
 
+	<messageFormatter contentType="multipart/form-data" class="org.wso2.carbon.relay.ExpandingMessageFormatter"/>
+
+    <messageBuilder contentType="multipart/form-data" class="org.wso2.carbon.relay.BinaryRelayBuilder"/>
+
 	Note: Add the aforementioned message formatters and the message builder to the axis file, if they are not available by default.
 	
- 3. Make sure the compressed ESB 4.9.0 zip file with the changes in the step 1 and 2, is available at "<CONNECTORS_HOME>/repository/"
+ 3. Make sure the compressed ESB 5.0.0-BETA zip file with the changes in the step 1 and 2, is available at "<CONNECTORS_HOME>/repository/"
 
  4. Follow the below steps to create a ZohoCRM account.
 

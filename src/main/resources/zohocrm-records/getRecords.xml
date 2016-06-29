@@ -91,7 +91,7 @@
 					urlQuery += 'lastModifiedTime=' + lastModifiedTime + '&';
 				}
 						
-				urlQuery = '/' + moduleType + '/getRecords?' + urlQuery.substring(0, (''+urlQuery).length-1);
+				urlQuery = '/' + moduleType + '/getRecords?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
 				mc.setProperty('uri.var.urlQuery', urlQuery);
 							
 			]]></script>

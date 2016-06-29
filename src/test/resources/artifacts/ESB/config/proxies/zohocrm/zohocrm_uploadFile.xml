@@ -12,6 +12,7 @@
                 <scope>{$url:scope}</scope>
                 <accessToken>{$url:accessToken}</accessToken>
                 <moduleType>{$url:moduleType}</moduleType>
+                <id>{$url:id}</id>
             </zohocrm.uploadFile>
             <respond/>
         </inSequence>

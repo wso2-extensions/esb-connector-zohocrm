@@ -5,10 +5,5 @@
   "parentModule": "Campaigns",
   "moduleType": "Leads",
   "newFormat": 1,
-  "id":
-  %
-  s
-  (
-  parentModuleId
-  )
+  "id":%s(parentModuleId)
 }

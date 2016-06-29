@@ -58,7 +58,7 @@
 				}
 				
 				//urlQuery.length is always greater than 1 since it is being set by init method
-				urlQuery = '/Leads/convertLead?' + urlQuery.substring(0, urlQuery.length-1);
+				urlQuery = '/Leads/convertLead?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
 				mc.setProperty('uri.var.urlQuery', urlQuery);
 							
 			]]></script>
