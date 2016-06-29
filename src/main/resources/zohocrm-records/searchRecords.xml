@@ -72,7 +72,7 @@
 				urlQuery += 'newFormat=' + newFormat +'&';
 			}
 					
-			urlQuery = '/' + mc.getProperty('uri.var.module') + '/searchRecords?' + urlQuery.substring(0, (''+urlQuery).length-1);
+			urlQuery = '/' + mc.getProperty('uri.var.module') + '/searchRecords?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
 			mc.setProperty('uri.var.urlQuery', urlQuery);
 			
 			]]></script>

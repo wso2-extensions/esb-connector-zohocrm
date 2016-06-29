@@ -69,7 +69,7 @@
 					urlQuery += 'version=' + version + '&';
 				}
 						
-				urlQuery = '/' + moduleType + '/getSearchRecords?' + urlQuery.substring(0, urlQuery.length-1);
+				urlQuery = '/' + moduleType + '/getSearchRecords?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
 				mc.setProperty('uri.var.urlQuery', urlQuery);
 							
 			]]></script>

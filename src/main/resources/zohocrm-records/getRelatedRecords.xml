@@ -63,7 +63,7 @@
 					urlQuery += 'fromIndex=' + fromIndex + '&';
 				}
 						
-				urlQuery = '/' + moduleType + '/getRelatedRecords?' + urlQuery.substring(0, urlQuery.length-1);
+				urlQuery = '/' + moduleType + '/getRelatedRecords?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
 				mc.setProperty('uri.var.urlQuery', urlQuery);
 							
 			]]></script>

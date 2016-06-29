@@ -998,7 +998,7 @@ public class ZohocrmConnectorIntegrationTest extends ConnectorIntegrationTestBas
         String fileUploadProxyUrl = getProxyServiceURL("zohocrm_uploadFile");
         fileUploadProxyUrl +=
                 "?accessToken=" + connectorProperties.getProperty("accessToken") + "&scope="
-                        + connectorProperties.getProperty("scope") + "&moduleType=Campaigns";
+                        + connectorProperties.getProperty("scope") + "&moduleType=Campaigns" + "&id=" + connectorProperties.getProperty("recordId");
 
         String fileName = connectorProperties.getProperty("uploadFileName");
 
@@ -1012,7 +1012,7 @@ public class ZohocrmConnectorIntegrationTest extends ConnectorIntegrationTestBas
         final File file = new File(pathToResourcesDirectory + fileName);
 
         multipartProcessor.addFileToRequest("content", file, "text/plain");
-        multipartProcessor.addFormDataToRequest("id", connectorProperties.getProperty("recordId"));
+
         RestResponse<JSONObject> esbRestResponse = multipartProcessor.processForJsonResponse();
         Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 200);
         String attachmentId =
@@ -1028,5 +1028,4 @@ public class ZohocrmConnectorIntegrationTest extends ConnectorIntegrationTestBas
 
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
     }
-
 }

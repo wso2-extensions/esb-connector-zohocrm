@@ -3,11 +3,6 @@
   "accessToken": "%s(accessToken)",
   "scope": "%s(scope)",
   "moduleType": "Campaigns",
-  "id":
-  %
-  s
-  (
-  recordId
-  ),
+  "id":%s(recordId),
   "newFormat": 1
 }
