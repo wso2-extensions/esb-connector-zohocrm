@@ -46,7 +46,7 @@ public class ZohocrmConnectorIntegrationTest extends ConnectorIntegrationTestBas
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
 
-        init("zohocrm-connector-1.0.1-SNAPSHOT");
+        init("zohocrm-connector-1.0.1");
 
         esbRequestHeadersMap.put("Accept-Charset", "UTF-8");
         esbRequestHeadersMap.put("Content-Type", "application/json");
