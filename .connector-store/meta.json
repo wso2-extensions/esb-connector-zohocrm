@@ -4,7 +4,7 @@
     "category": "Customer Relationship Management",
     "documentationUrl": "https://docs.wso2.com/display/ESBCONNECTORS/ZohoCRM+Connector",
     "description": "The ZohoCRM connector allows you to access the ZohoCRM REST API through WSO2 ESB. ZohoCRM is an on-demand Customer Relationship Management (CRM) Software as a Service (SaaS) solution that delivers complete CRM functionality at a fraction of the price of other offerings.",
-    "status": "Unsupported",
+    "status": "Active",
     "labels": [
         "connector"
     ],
